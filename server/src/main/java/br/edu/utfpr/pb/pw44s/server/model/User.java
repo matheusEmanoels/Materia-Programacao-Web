@@ -8,12 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name="user_tb")
 @Getter @Setter
-@Table(name = "user_tb")
 public class User {
+
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
+
     private String username;
     private String displayName;
     private String password;

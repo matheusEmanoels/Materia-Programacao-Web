@@ -23,13 +23,13 @@ public class UserControllerTest {
     UserRepository userRepository;
 
     @BeforeEach
-    public void cleanUp(){
+    public void cleanup() {
         userRepository.deleteAll();
         testRestTemplate.getRestTemplate().getInterceptors().clear();
     }
 
     @Test
-    public void postUser_whenUserIsValid_receiveOk(){
+    public void postUser_whenUserIsValid_receiveOk() {
         User user = new User();
         user.setUsername("test-user");
         user.setDisplayName("test-Display");
@@ -40,20 +40,18 @@ public class UserControllerTest {
     }
 
     @Test
-    public void postUser_whenUserIsValid_userSavedToDatabase(){
+    public void postUser_whenUserIsValid_userSavedToDatabase() {
         User user = createValidUser();
-
         testRestTemplate.postForEntity("/users", user, Object.class);
+        // Agora precisamos garantir que tudo foi salvo no Banco de Dados.
         assertThat(userRepository.count()).isEqualTo(1);
-
     }
 
-    public User createValidUser(){
+    private User createValidUser(){
         User user = new User();
         user.setUsername("test-user");
         user.setDisplayName("test-Display");
         user.setPassword("P4ssword");
-
         return user;
     }
 }
