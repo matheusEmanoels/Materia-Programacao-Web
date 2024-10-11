@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
+		<!--  lookup parent from repository  -->
 	</parent>
 	<groupId>br.edu.utfpr.pb.pw44s</groupId>
 	<artifactId>server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>server</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Projeto da disciplina de Programação para Web (PW44S) do curso de Tecnologia em Análise e Desenvolvimento de Sistemas da Universidade Tecnológica Federal do Paraná - Campus Pato Branco (UTFPR-PB)</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -40,9 +39,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -74,8 +76,26 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--  JWT Authentication  -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.4.0</version>
+		</dependency>
+		<!--  convert DTOs  -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<!--  requisições nos testes  -->
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>5.3</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -92,5 +112,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
