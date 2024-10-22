@@ -20,21 +20,24 @@ import java.util.Collection;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
-    @Size(min = 4, max = 255)
+    @Size(min = 4, max = 255)  // valida para que o atributo tenha entre 4 e 255 caracteres
     private String username;
 
-    @NotNull
-    @Size(min = 4, max = 50)
+    @NotNull // valida para que o atributo não seja nulo
     private String displayName;
 
     @NotNull
+    @Size(min = 6, max = 254)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")
     private String password;
+    //valida para que o atributo tenha pelo menos 1 letra maiúscula,
+    // 1 letra minúscula e 1 número.
 
+    //Metodo que irá retornar a lista de permissões
     @Override
     @Transient
     @JsonIgnore
@@ -49,20 +52,17 @@ public class User implements UserDetails {
     }
 
     @Override
-    @Transient
-    public boolean isAccountNonLocked() {
+    @Transient  public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    @Transient
-    public boolean isCredentialsNonExpired() {
+    @Transient  public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    @Transient
-    public boolean isEnabled() {
+    @Transient  public boolean isEnabled() {
         return true;
     }
 }

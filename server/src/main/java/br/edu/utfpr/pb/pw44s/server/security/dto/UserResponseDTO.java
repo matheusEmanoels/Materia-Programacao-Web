@@ -22,6 +22,7 @@ public class UserResponseDTO {
     public UserResponseDTO(User user) {
         this.displayName = user.getDisplayName();
         this.username = user.getUsername();
+        this.authorities = new HashSet<>();
         for(GrantedAuthority authority : user.getAuthorities()){
             authorities.add(new AuthorityResponseDTO(authority.getAuthority()));
         }
