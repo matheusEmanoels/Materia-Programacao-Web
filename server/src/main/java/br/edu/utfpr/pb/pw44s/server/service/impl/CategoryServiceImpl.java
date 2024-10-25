@@ -5,12 +5,13 @@ import br.edu.utfpr.pb.pw44s.server.repository.CategoryRepository;
 import br.edu.utfpr.pb.pw44s.server.service.ICategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements ICategoryService {
+public class CategoryServiceImpl extends CrudServiceImpl<Category, Long> implements ICategoryService {
     private final CategoryRepository categoryRepository;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -18,32 +19,7 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
-    }
-
-    @Override
-    public Page<Category> findAll(Pageable pageable) {
-        return categoryRepository.findAll(pageable);
-    }
-
-    @Override
-    public Category save(Category category) {
-        return categoryRepository.save(category);
-    }
-
-    @Override
-    public Category findOne(Long id) {
-        return categoryRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public boolean exists(Long id) {
-        return categoryRepository.existsById(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        categoryRepository.deleteById(id);
+    protected JpaRepository<Category, Long> getRepository() {
+        return categoryRepository;
     }
 }
