@@ -20,6 +20,6 @@ public class ProductDTO {
     private BigDecimal price;
 
 
-    private Category categoryId;
+    private CategoryDTO categoryId;
 
 }

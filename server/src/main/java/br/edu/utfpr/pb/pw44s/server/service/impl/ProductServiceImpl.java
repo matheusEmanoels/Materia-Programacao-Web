@@ -3,12 +3,9 @@ package br.edu.utfpr.pb.pw44s.server.service.impl;
 import br.edu.utfpr.pb.pw44s.server.model.Product;
 import br.edu.utfpr.pb.pw44s.server.repository.ProductRepository;
 import br.edu.utfpr.pb.pw44s.server.service.IProductService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class ProductServiceImpl extends CrudServiceImpl<Product, Long> implements IProductService {
