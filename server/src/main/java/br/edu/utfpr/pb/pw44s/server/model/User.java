@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private long id;
 
     @NotNull
-    @Size(min = 4, max = 255)  // valida para que o atributo tenha entre 4 e 255 caracteres
+    @Size(min = 4, max = 50, message = "O tamanho do username deve ser entre 4 e 50 caracteres")  // valida para que o atributo tenha entre 4 e 255 caracteres
     private String username;
 
     @NotNull // valida para que o atributo não seja nulo

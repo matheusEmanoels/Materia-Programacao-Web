@@ -17,15 +17,16 @@ public class UserDTO {
 
     private long id;
 
-    @NotNull
-    @Size(min = 4, max = 50)
+    @NotNull(message = "O atributo usuario nao pode ser nulo.")
+    @Size(min = 4, max = 50, message = "O tamanho do username deve ser entre 4 e 50 caracteres")
     private String username;
 
     @NotNull
-    @Size(min = 4, max = 50)
+    @Size(min = 4, max = 50, message = "O tamanho do displayname deve ter entre 4 e 50 caracteres")
     private String displayName;
 
-    @NotNull
+    @NotNull(message = "A senha não pode ser vazia")
+    @Size(min = 6, max = 8, message = "O tamanho da senha deve ser de no minimo 6 e maximo 8 caracteres")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")
     private String password;
 

@@ -8,10 +8,12 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RestControllerAdvice
 public class ExcepetionHandlerAdvice {
     @ExceptionHandler
     @ResponseStatus
@@ -29,7 +31,7 @@ public class ExcepetionHandlerAdvice {
                 validationErrors);
     }
 
-
+/*
     @ExceptionHandler({IllegalStateException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handlerValidationException(IllegalStateException exception, HttpServletRequest request) {
@@ -41,4 +43,6 @@ public class ExcepetionHandlerAdvice {
     public ApiError handlerValidationException(HttpMessageNotReadableException exception, HttpServletRequest request) {
         return new ApiError(HttpStatus.BAD_REQUEST.value(), "Validation Error!", request.getServletPath(), null);
     }
+    
+ */
 }

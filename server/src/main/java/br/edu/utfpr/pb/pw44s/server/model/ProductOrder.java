@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.pw44s.server.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.Constraint;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +29,7 @@ public class ProductOrder {
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     @Getter @Setter
+    @JsonBackReference
     private Order order;
 
     @NotNull
