@@ -1,16 +1,15 @@
-import { AxiosResponse } from 'axios'; 
-import './style.css'; 
-import { ChangeEvent, useState } from 'react'; 
+import {  AxiosResponse } from 'axios';
+import './style.css';
+import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ApiResponse } from '@/commons/interfaces';
+import { IUserLogin } from '@/commons/interfaces';
 import AuthService from '@/service/AuthService';
-import { IUserSignup } from '@/commons/interfaces';
 
-export function UserSignUpPage() {
+export function LoginPage() {
     /* Criação de um objeto chamado `form` para armazenar o username e passord do usuário*/
     /* useState: Inicializa o estado do formulário com valores vazios para os campos displayName, username e password */
     const [form, setForm] = useState({
-        displayName: "",
         username: "",
         password: "",
     });
@@ -18,84 +17,70 @@ export function UserSignUpPage() {
     /* Criação de um objeto chamado `errors` para armazenar os erros referente a displayName, username e passord do usuário*/
     /* useState: Inicializa o estado para armazenar mensagens de erro relacionadas a cada campo */
     const [errors, setErros] = useState({
-        displayName: "",
         username: "",
         password: "",
     });
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const [pendingApiCall, setPendingApiCall] = useState(false);
     const [apiError, setApiError] = useState("");
     const [apiSuccess, setApiSuccess] = useState("");
 
-    /* Função chamada sempre que ocorre uma mudança em algum campo de input. 
-      A cada alteração no campo de entrada, ela atualiza o estado de 'form' e limpa os erros associados ao campo */
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value, name } = event.target; // Obtém o valor e o nome do campo que disparou o evento
+        const { value, name } = event.target; 
 
-        /* Atualiza o estado do formulário mantendo os valores anteriores e modificando apenas o campo editado */
+
         setForm((previousForm) => ({
-            ...previousForm,
-            [name]: value, 
+            ...previousForm, // Mantém os valores anteriores de 'form'
+            [name]: value, // Atualiza o campo específico com o novo valor
         }));
 
         /* Limpa o erro do campo editado */
         setErros((previousErrors) => ({
             ...previousErrors,
-            [name]: undefined, 
+            [name]: undefined, // Limpa o erro apenas do campo que está sendo editado
         }));
 
         setApiError("");
     };
 
     /* Função assíncrona executada quando o botão "Cadastrar" é clicado */
-    const onClickSignup = async () => {
+    const onClickLogin = async () => {
         setPendingApiCall(true);
-        const user: IUserSignup = {
-            displayName: form.displayName,
+        /* Monta o objeto com os valores do formulário que será enviado ao back-end */
+        const user: IUserLogin= {
             username: form.username,
             password: form.password,
         };
 
-       const response: AxiosResponse<ApiResponse> = await AuthService.signup(user);
+        console.log("Meu objeto: " + user.username + " - " + user.password);
 
-       if(response.status === 200 || response.status === 201){
-            setApiSuccess("Cadastro realizado com sucesso");
+
+        const response: AxiosResponse<ApiResponse> = await AuthService.login(user);
+        
+        if(response.status === 200){
+            setApiSuccess("Login Success");
             setTimeout(()=>{
-                navigate("/login");
-            },3000)
-       }else{
-            setApiError("Falha ao cadastrar usuario");
+                navigate("/");
+            },3000);
+        }else{
+            setApiError("Erro ao fazer o login");
             if(response.data.validationErrors){
-                setErros(response.data.validationErrors)
+                console.error("Falha ao autenticar o usuario");
             }
             setPendingApiCall(false);
-       }
-    };
+        }
 
+
+    };
 
     return (
         <>
             <main className="form-signup w-100 m-auto">
                 <form>
-
                     <div className="text-center">
 
-                        <h1 className="h3 mb-3 fw-normal">User Signup Page</h1>
-                    </div>
-
-                    <div className="form-floating mb-3">
-                        <input
-                            id="displayName"
-                            name="displayName"
-                            className={"form-control " + (errors.displayName ? "is-invalid" : "")}
-
-                            type="text"
-                            placeholder="Informe o seu nome"
-                            onChange={onChange}
-                        />
-                        <label htmlFor="displayName">Informe seu nome</label>
-                        {errors.displayName && (<div className="invalid-feedback">{errors.displayName}</div>)}
+                        <h1 className="h3 mb-3 fw-normal">User Login Page</h1>
                     </div>
 
                     <div className="form-floating mb-3">
@@ -115,7 +100,7 @@ export function UserSignUpPage() {
                         <input
                             id="password"
                             name="password"
-                            type="password" 
+                            type="password"
                             className={"form-control " + (errors.password ? "is-invalid" : "")}
                             placeholder="Informe a sua senha"
                             onChange={onChange}
@@ -143,19 +128,19 @@ export function UserSignUpPage() {
                     </div>
 
                     <div className="text-center">
-                        <button type="button" className="w-100 btn btn-lg btn-primary mb-3" onClick={onClickSignup} disabled={pendingApiCall}>
+                        <button type="button" className="w-100 btn btn-lg btn-primary mb-3" onClick={onClickLogin} disabled={pendingApiCall}>
                             {pendingApiCall &&(
-                                  <div className="spinner-border text-light-spinner spinner-border-sm mr-sm-1" role="status">
-                                  <span className="visually-hidden">Aguarde</span>
-                              </div>
+                                <div className="spinner-border text-light-spinner spinner-border-sm mr-sm-1" role="status">
+                                    <span className="visually-hidden">Aguarde</span>
+                                </div>
                             )}
-                            Cadastrar
+                            Login
                         </button>
                     </div>
                 </form>
 
                 <div className="text-center">
-                    <Link to="/login">Ir para a tela de login</Link>
+                    <Link to="/signup">Deseja cadastrar-se?</Link>
                 </div>
             </main>
         </>
