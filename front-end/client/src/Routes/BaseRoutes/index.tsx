@@ -2,6 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import { LoginPage } from "@/pages/LoginPage";
 import { UserSignUpPage } from "@/pages/UserSignupPages";
 import { HomePage } from "@/pages/HomePage";
+import { AuthenticationRoutes } from "../AuthenticatedRoutes";
+import { CategoryListPage } from "@/pages/CategoryListPage";
+import { CategoryFormPage } from "@/pages/CategoryFormPage";
+import { ProductListPage } from "@/pages/ProductListPage";
+import { ProductFormPage } from "@/pages/ProductFormPage";
+import { ProductListPageV2 } from "@/pages/ProductListPageV2";
 
 
 export function BaseRoutes(){
@@ -12,8 +18,17 @@ export function BaseRoutes(){
            <Route path="/login" element={<LoginPage/>}/>
 
             {/*Protected Routes*/}
-            <Route path="/" element={<HomePage/>}></Route>
-            <Route path="/home" element={<HomePage/>}></Route>
+            <Route element={<AuthenticationRoutes />}>
+                <Route path="/" element={<HomePage/>}/>
+                <Route path="/home" element={<HomePage/>}/>
+                <Route path="/categories" element={<CategoryListPage/>}/>
+                <Route path="/categories/new" element={<CategoryFormPage/>}/>
+                <Route path="/categories/:id" element={<CategoryFormPage/>}/>
+                <Route path="/products" element={<ProductListPage/>}/>
+                <Route path="/products/new" element={<ProductFormPage/>}/>
+                <Route path="/products/:id" element={<ProductFormPage/>}/>
+                <Route path="/products-v2" element={<ProductListPageV2/>}/>
+            </Route>
         </Routes>
     )
 }

@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ApiResponse } from '@/commons/interfaces';
 import { IUserLogin } from '@/commons/interfaces';
 import AuthService from '@/service/AuthService';
+import { ButtonWithProgress } from '@/components/ButtonWithProgress';
 
 export function LoginPage() {
     /* Criação de um objeto chamado `form` para armazenar o username e passord do usuário*/
@@ -126,17 +127,14 @@ export function LoginPage() {
                             </div>
                         )}
                     </div>
-
-                    <div className="text-center">
-                        <button type="button" className="w-100 btn btn-lg btn-primary mb-3" onClick={onClickLogin} disabled={pendingApiCall}>
-                            {pendingApiCall &&(
-                                <div className="spinner-border text-light-spinner spinner-border-sm mr-sm-1" role="status">
-                                    <span className="visually-hidden">Aguarde</span>
-                                </div>
-                            )}
-                            Login
-                        </button>
-                    </div>
+                    
+                    <ButtonWithProgress
+                        onClick = {onClickLogin}
+                        disable = {pendingApiCall}
+                        pendingApiCall = {pendingApiCall}
+                        text = "Login"
+                    />
+                    
                 </form>
 
                 <div className="text-center">

@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ApiResponse } from '@/commons/interfaces';
 import AuthService from '@/service/AuthService';
 import { IUserSignup } from '@/commons/interfaces';
+import { ButtonWithProgress } from '@/components/ButtonWithProgress';
+import { Input } from '@/components/Input';
 
 export function UserSignUpPage() {
     /* Criação de um objeto chamado `form` para armazenar o username e passord do usuário*/
@@ -85,43 +87,45 @@ export function UserSignUpPage() {
                     </div>
 
                     <div className="form-floating mb-3">
-                        <input
+                        <Input
                             id="displayName"
                             name="displayName"
-                            className={"form-control " + (errors.displayName ? "is-invalid" : "")}
-
                             type="text"
                             placeholder="Informe o seu nome"
+                            className="form-control "
                             onChange={onChange}
-                        />
-                        <label htmlFor="displayName">Informe seu nome</label>
-                        {errors.displayName && (<div className="invalid-feedback">{errors.displayName}</div>)}
+                            value={form.displayName}
+                            hasError={errors.displayName ? true : false}
+                            error={errors.displayName}
+                            label="Informe o seu nome"/>
                     </div>
 
                     <div className="form-floating mb-3">
-                        <input
+                        <Input
                             id="username"
                             name="username"
                             type="text"
-                            className={"form-control " + (errors.username ? "is-invalid" : "")}
                             placeholder="Informe o seu usuário"
+                            className="form-control "
                             onChange={onChange}
-                        />
-                        <label htmlFor="username">Informe o usuário</label>
-                        {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
+                            value={form.username}
+                            hasError={errors.username ? true : false}
+                            error={errors.username}
+                            label="Informe o seu usuário"/>
                     </div>
 
                     <div className="form-floating mb-3">
-                        <input
+                        <Input
                             id="password"
                             name="password"
-                            type="password" 
-                            className={"form-control " + (errors.password ? "is-invalid" : "")}
+                            type="password"
                             placeholder="Informe a sua senha"
+                            className="form-control "
                             onChange={onChange}
-                        />
-                        <label htmlFor="password">Informe a senha</label>
-                        {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+                            value={form.password}
+                            hasError={errors.password ? true : false}
+                            error={errors.password}
+                            label="Informe a sua senha"/>
                     </div>
 
                     <div>
@@ -142,16 +146,12 @@ export function UserSignUpPage() {
                         )}
                     </div>
 
-                    <div className="text-center">
-                        <button type="button" className="w-100 btn btn-lg btn-primary mb-3" onClick={onClickSignup} disabled={pendingApiCall}>
-                            {pendingApiCall &&(
-                                  <div className="spinner-border text-light-spinner spinner-border-sm mr-sm-1" role="status">
-                                  <span className="visually-hidden">Aguarde</span>
-                              </div>
-                            )}
-                            Cadastrar
-                        </button>
-                    </div>
+                    <ButtonWithProgress
+                        onClick = {onClickSignup}
+                        disable = {pendingApiCall}
+                        pendingApiCall = {pendingApiCall}
+                        text = "Cadastrar"
+                    />
                 </form>
 
                 <div className="text-center">
