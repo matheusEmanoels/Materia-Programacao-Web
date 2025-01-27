@@ -75,6 +75,17 @@ export function NavBar(){
                         </li>
 
                         <li className="nav-item">
+                            <NavLink
+                                to="/cart"
+                                className={(navData) =>
+                                    navData.isActive ? "nav-link active" : "nav-link"
+                                }
+                            >
+                                Carrinho
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item">
                             <button className="btn btn-light" onClick={onClickLogout}>
                                 &times; Sair
                             </button>
