@@ -26,3 +26,13 @@ export interface IProduct{
     description: string,
     category: ICategory;
 }
+
+export interface IProductCard {
+    id?: number;
+    imageUrl: string;
+    name: string;
+    description: string;
+    price: number;
+    onAddToCart: () => void;
+}
+  
