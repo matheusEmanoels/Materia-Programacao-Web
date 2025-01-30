@@ -35,4 +35,19 @@ export interface IProductCard {
     price: number;
     onAddToCart: () => void;
 }
+
+export interface IProductOrder {
+    id?: number;
+    quantity: number; 
+    unitPrice: number; 
+    product: IProduct;
+}
+
+export interface IOrder{
+    id?: number;
+    price: number;
+    date: string;
+    userId: number;
+    productOrders: IProductOrder[];
+}
   

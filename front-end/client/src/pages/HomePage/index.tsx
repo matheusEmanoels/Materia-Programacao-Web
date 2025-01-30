@@ -15,7 +15,6 @@ export function HomePage(){
     const loadData = async() =>{
         const response = await ProductService.findAll();
 
-        console.log(response.status);
         if(response.status === 200){
             setData(response.data);
         }else{
