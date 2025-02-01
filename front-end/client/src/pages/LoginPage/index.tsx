@@ -54,7 +54,6 @@ export function LoginPage() {
             password: form.password,
         };
 
-        console.log("Meu objeto: " + user.username + " - " + user.password);
 
 
         const response: AxiosResponse<ApiResponse> = await AuthService.login(user);
@@ -67,7 +66,7 @@ export function LoginPage() {
         }else{
             setApiError("Erro ao fazer o login");
             if(response.data.validationErrors){
-                console.error("Falha ao autenticar o usuario");
+                alert("Falha ao autenticar o usuario");
             }
             setPendingApiCall(false);
         }
