@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { CarrinhoCard } from "@/components/Carrinho";
-import { IOrder, IProductOrder,  IProduct } from "@/commons/interfaces";
+import { IOrder, IProductOrder } from "@/commons/interfaces";
 import OrderService from "@/service/OrderService";
+import AuthService from "@/service/AuthService";
+import { NavBar } from "@/components/NavBar";
+import { useNavigate } from "react-router-dom";
 
 export function CarrinhoCompra() {
     const [produtos, setProdutos] = useState([]);
     const [total, setTotal] = useState(0);
-    const [order, setOrder] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
@@ -36,7 +39,7 @@ export function CarrinhoCompra() {
         setTotal(novoTotal);
     };
 
-    const transformDataToOrder = (userId: number): IOrder =>{
+    const transformDataToOrder = async(): IOrder =>{
         const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
         const productOrders: IProductOrder[] = carrinho.map(item => ({
             quantity: item.quant,
@@ -47,38 +50,34 @@ export function CarrinhoCompra() {
         }));
     
         const totalPrice = carrinho.reduce((sum, item) => sum + item.price * item.quant, 0);
-    
+        const responseUser = await AuthService.getUser();
+        console.log(responseUser.data.id)
         const order: IOrder = {
             price: totalPrice,
             date: "2024-10-31",
             userId: {
-                id: 3,
+                id: responseUser.data.id,
             },
             productOrders: productOrders,
         };
     
-        setOrder(order);
-    };
-
-    const finalizaCompra = async() =>{
-        transformDataToOrder(1);
-        if (!order || !order.productOrders || order.productOrders.length === 0) {
-            alert("Pedido Vazio");
-        }
-
         const response = await OrderService.save(order);
         
         console.log(response.status);
         if(response.status === 201 || response.status === 200){
             alert("Compra finalizada com sucesso");
             localStorage.removeItem("carrinho");
+        }else if(response.status === 401){
+            alert("Você nao esta logado para finalizar a compra faça o login!");
+            navigate("/login")
         }else{
             alert("Compra sem sucesso");
         }
-    }
+    };
 
     return (
         <main>
+            <NavBar/>
             <CarrinhoCard
                 produtos={produtos}
                 total={total}
@@ -86,7 +85,7 @@ export function CarrinhoCompra() {
                 removerProduto={removerProduto}
             />
 
-            <button className="btn btn-primary btn-lg d-block mx-auto mt-4" onClick={finalizaCompra}>Finalizar Compra</button>
+            <button className="btn btn-primary btn-lg d-block mx-auto mt-4" onClick={transformDataToOrder}>Finalizar Compra</button>
         </main>
     );
 }

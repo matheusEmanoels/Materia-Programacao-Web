@@ -16,14 +16,8 @@ import { ProdutoDetalhe } from "@/pages/ProdutoDetalhe";
 export function BaseRoutes(){
     return(
         <Routes>
-           {/*Public Routes */}
-           <Route path="/signup" element={<UserSignUpPage/>}/>
-           <Route path="/login" element={<LoginPage/>}/>
-
             {/*Protected Routes*/}
-            <Route element={<AuthenticationRoutes />}>
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/home" element={<HomePage/>}/>
+            <Route element={<AuthenticationRoutes />}>        
                 <Route path="/categories" element={<CategoryListPage/>}/>
                 <Route path="/categories/new" element={<CategoryFormPage/>}/>
                 <Route path="/categories/:id" element={<CategoryFormPage/>}/>
@@ -33,10 +27,16 @@ export function BaseRoutes(){
                 <Route path="/products-v2" element={<ProductListPageV2/>}/>
                 <Route path="/products-v2/new" element={<ProductFormPageV2/>}/>
                 <Route path="/products-v2/:id" element={<ProductFormPageV2/>}/>
-                <Route path="/cart" element={<CarrinhoCompra/>}/>
-                <Route path="/produto-detalhe/:id" element={<ProdutoDetalhe/>}/>
                 
             </Route>
+           {/*Public Routes */}
+           <Route path="/signup" element={<UserSignUpPage/>}/>
+           <Route path="/login" element={<LoginPage/>}/>
+           <Route path="/" element={<HomePage/>}/>
+           <Route path="/home" element={<HomePage/>}/>
+           <Route path="/cart" element={<CarrinhoCompra/>}/>
+           <Route path="/produto-detalhe/:id" element={<ProdutoDetalhe/>}/>
+
         </Routes>
     )
 }

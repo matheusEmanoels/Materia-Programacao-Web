@@ -60,6 +60,7 @@ export function LoginPage() {
         
         if(response.status === 200){
             setApiSuccess("Login Success");
+            localStorage.setItem("username", JSON.stringify(user.username));
             setTimeout(()=>{
                 navigate("/");
             },3000);

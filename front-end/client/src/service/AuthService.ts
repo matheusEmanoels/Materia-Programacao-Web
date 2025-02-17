@@ -1,6 +1,7 @@
 import {api} from "@/lib/axios"
 import { IUserSignup } from "@/commons/interfaces";
 import { IUserLogin } from "@/commons/interfaces";
+import { IUser } from "@/commons/interfaces";
 
 const signup = async(user: IUserSignup) =>{
     let response;
@@ -35,8 +36,20 @@ const isAuthenticaded = () : boolean =>{
     return token ? true : false;
 }
 
+const getUser = async() =>{
+    const username = localStorage.getItem("username");
+    let response;
+    try{
+        response = await api.get(`/users/${JSON.parse(username)}`)
+    }catch(error: any){
+        response = error.response;
+    }
+    return response;
+}
+
 const logout = () =>{
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     api.defaults.headers.common["Authorization"] = "";
 }
 
@@ -45,6 +58,7 @@ const AuthService = {
     login,
     isAuthenticaded,
     logout,
+    getUser,
 }
 
 export default AuthService;

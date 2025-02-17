@@ -9,6 +9,13 @@ export interface IUserLogin{
     password: string;
 }
 
+export interface IUser{
+    id: number;
+    displayName: string;
+    username: string;
+    password: string;
+}
+
 export interface ApiResponse {
     message: string;
     validationErrors: any; 

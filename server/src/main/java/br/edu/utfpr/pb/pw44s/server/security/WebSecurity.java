@@ -68,6 +68,7 @@ public class WebSecurity {
                 //permite que a rota "/users" seja acessada, mesmo sem o usuário estar
                 // autenticado desde que o metodo HTTP da requisição seja POST
                 .requestMatchers(antMatcher(HttpMethod.POST, "/users/**")).permitAll()
+                .requestMatchers(antMatcher(HttpMethod.GET, "/product/**")).permitAll()
                 //permite que a rota "/error" seja acessada por qualquer requisição mesmo
                 // o usuário não estando autenticado
                 .requestMatchers(antMatcher("/error/**")).permitAll()

@@ -8,10 +8,12 @@ export function AuthenticationRoutes(){
 
     return isAuthenticaded ? (
         <>
-            <NavBar/>
             <Outlet/>
         </>
     ) : (
-        <Navigate to="/login" state={{from : location}} replace/>
+        <>
+            <NavBar/>
+            <Navigate to="/login" state={{from : location}} replace/>
+        </>
     )
 }

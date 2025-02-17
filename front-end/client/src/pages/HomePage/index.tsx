@@ -2,6 +2,7 @@ import ProductService from "@/service/ProductService"
 import { ProductCard } from "@/components/CardsProducts"
 import { IProductCard } from "@/commons/interfaces";
 import { useEffect, useState } from "react";
+import { NavBar } from "@/components/NavBar";
 
 export function HomePage(){
     const [data, setData] = useState<IProductCard>([]);
@@ -38,6 +39,7 @@ export function HomePage(){
 
     return(
         <>
+            <NavBar/>
             <main className="container">
                 <section className="py-5 bg-light">
                     <div className="container text-center">
